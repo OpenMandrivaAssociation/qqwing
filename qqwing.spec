@@ -26,7 +26,7 @@ libqqwing is a C++ library for solving and generating Sudoku puzzles.
 %package -n %{devname}
 Summary:        Development files for libqqwing
 Group:		Development/C++
-Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
+Requires:       %{libname} = %{EVRD}
 
 %description -n %{devname}
 The %{name}-devel package contains libraries and header files for
