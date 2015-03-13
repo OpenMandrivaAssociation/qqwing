@@ -1,27 +1,34 @@
+%define major   2
+%define libname %mklibname %{name} %{major}
+%define devname %mklibname %{name} -d
+
 Name:           qqwing
 Version:        1.3.3
-Release:        1%{?dist}
+Release:        1
 Summary:        Command-line Sudoku solver and generator
 
 License:        GPLv2+
+Group:		Games/Puzzles
 URL:            http://qqwing.com/
 Source0:        http://qqwing.com/qqwing-%{version}.tar.gz
-Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
+Requires:       %{libname} = %{EVRD}
 
 %description
 QQwing is a command-line Sudoku solver and generator.
 
-%package        libs
+%package -n %{libname}
 Summary:        Library for Sudoku solving and generation
+Group:		System/Libraries
 
-%description    libs
+%description -n %{libname}
 libqqwing is a C++ library for solving and generating Sudoku puzzles.
 
-%package        devel
+%package -n %{devname}
 Summary:        Development files for libqqwing
+Group:		Development/C++
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 
-%description    devel
+%description -n %{devname}
 The %{name}-devel package contains libraries and header files for
 developing applications that use libqqwing.
 
@@ -29,61 +36,30 @@ developing applications that use libqqwing.
 %setup -q
 
 %build
-%configure --disable-static
+%configure2_5x \
+	 --disable-static
+
 sed -i 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' libtool
 sed -i 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' libtool
-make %{?_smp_mflags}
+
+%make
 
 
 %install
-%make_install
+%makeinstall_std
 find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
-
-%post libs -p /sbin/ldconfig
-
-%postun libs -p /sbin/ldconfig
-
 
 %files
 %doc README
 %{_bindir}/qqwing
 %{_mandir}/man1/qqwing.1.*
 
-%files libs
+%files %{libname}
 %doc AUTHORS COPYING
-%{_libdir}/libqqwing.so.*
+%{_libdir}/libqqwing.so.%{major}*
 
-%files devel
+%files %{devname}
 %{_includedir}/*
 %{_libdir}/libqqwing.so
 %{_libdir}/pkgconfig/qqwing.pc
 
-%changelog
-* Thu Nov 20 2014 Michael Catanzaro <mcatanzaro@gnome.org> - 1.3.3-1
-- Update to 1.3.3
-
-* Sun Sep 21 2014 Michael Catanzaro <mcatanzaro@gnome.org> - 1.3.1-1
-- Update to 1.3.1 and drop soname patch.
-
-* Sun Sep 21 2014 Michael Catanzaro <mcatanzaro@gnome.org> - 1.3.0-2
-- Revert soname bump.
-
-* Sat Sep 20 2014 Michael Catanzaro <mcatanzaro@gnome.org> - 1.3.0-1
-- Update to 1.3.0.
-- Update URLs.
-
-* Sat Aug 23 2014 Michael Catanzaro <mcatanzaro@gnome.org> - 1.2.0-2
-- Really update to 1.2.0. Much learning.
-
-* Sat Aug 23 2014 Michael Catanzaro <mcatanzaro@gnome.org> - 1.2.0-1
-- Update to 1.2.0
-
-* Tue Aug 19 2014 Michael Catanzaro <mcatanzaro@gnome.org> - 1.1.3-1
-- Trivial spec cleanups
-
-* Fri Aug 15 2014 Michael Catanzaro <mcatanzaro@gnome.org> - 1.1.3-1
-- Switch the base package from libqqwing to qqwing
-- Update to 1.1.3
-
-* Sat Aug  2 2014 Michael Catanzaro <mcatanzaro@gnome.org> - 1.1.2-1
-- New package
