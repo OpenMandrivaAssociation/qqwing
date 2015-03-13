@@ -54,11 +54,11 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %{_bindir}/qqwing
 %{_mandir}/man1/qqwing.1.*
 
-%files %{libname}
+%files -n %{libname}
 %doc AUTHORS COPYING
 %{_libdir}/libqqwing.so.%{major}*
 
-%files %{devname}
+%files -n %{devname}
 %{_includedir}/*
 %{_libdir}/libqqwing.so
 %{_libdir}/pkgconfig/qqwing.pc
