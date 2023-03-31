@@ -4,7 +4,7 @@
 
 Name:           qqwing
 Version:        1.3.4
-Release:        3
+Release:        4
 Summary:        Command-line Sudoku solver and generator
 Group:		Games/Puzzles
 License:        GPLv2+
