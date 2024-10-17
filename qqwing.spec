@@ -8,7 +8,7 @@ Release:        4
 Summary:        Command-line Sudoku solver and generator
 Group:		Games/Puzzles
 License:        GPLv2+
-URL:            http://ostermiller.org/qqwing/
+URL:            https://ostermiller.org/qqwing/
 Source0:        http://ostermiller.org/qqwing/qqwing-%{version}.tar.gz
 
 %description
