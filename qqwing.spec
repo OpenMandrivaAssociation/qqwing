@@ -11,6 +11,11 @@ License:        GPLv2+
 URL:            https://ostermiller.org/qqwing/
 Source0:        http://ostermiller.org/qqwing/qqwing-%{version}.tar.gz
 
+BuildRequires:	autoconf
+BuildRequires:	automake
+BuildRequires:	libtool-base
+BuildRequires:	slibtool
+BuildRequires:	make
 %description
 QQwing is a command-line Sudoku solver and generator.
 
